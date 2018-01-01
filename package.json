@@ -5,8 +5,8 @@
   "main": "./src/index.js",
   "scripts": {
     "start": "http-server",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "jest --verbose",
+    "test:watch": "jest --watch --verbose",
     "jsdoc": "jsdoc .\\src\\modules"
   },
   "repository": {
