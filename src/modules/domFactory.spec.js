@@ -9,6 +9,7 @@ describe('DomFactory class', () => {
   beforeEach(() => {
     validateMock = jest.fn();
     validateMock.isHtmlArray = jest.fn();
+    validateMock.isHtmlElement = jest.fn();
     domFactory = new DomFactory(document, validateMock);
   });
 
@@ -43,6 +44,21 @@ describe('DomFactory class', () => {
       expect(parent.childNodes).toContain(childSecond);
       expect(parent.childNodes).toContain(childThird);
       expect(parent.childElementCount).toEqual(3);
+    });
+
+    it('Calls Validate.isHtmlElement', () => {
+      const parent = document.createElement('div');
+      const child = document.createElement('p');
+      expect(validateMock.isHtmlElement.mock.calls.length).toBe(0);
+      domFactory.appendTo(parent, [child]);
+      expect(validateMock.isHtmlElement.mock.calls.length).toBe(1);
+    });
+
+    it('Calls Validate.isHtmlElement with the parent as an arg', () => {
+      const parent = document.createElement('div');
+      const child = document.createElement('p');
+      domFactory.appendTo(parent, [child]);
+      expect(validateMock.isHtmlElement.mock.calls[0][0]).toEqual(parent);
     });
 
     it('Calls Validate.isHtmlArray', () => {

@@ -19,6 +19,7 @@ class DomFactory {
    * @param {?Element[]} childArray Array of HTML node(s)
    */
   appendTo(parent, childArray) {
+    this.validate.isHtmlElement(parent);
     this.validate.isHtmlArray(childArray);
 
     childArray.map((node) => {
