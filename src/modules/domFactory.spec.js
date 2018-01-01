@@ -55,6 +55,13 @@ describe('DomFactory class', () => {
       DomFactory.appendTo(parent);
       expect(parent.childElementCount).toEqual(0);
     });
+
+    it('Throws appropriate error when childArray is not an Array', () => {
+      const parent = document.createElement('div');
+      const child = 'string';
+      const actual = () => { DomFactory.appendTo(parent, child); };
+      expect(actual).toThrow('string is not of type [Array]');
+    });
   });
 });
 
