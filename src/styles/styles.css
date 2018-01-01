@@ -1,0 +1,42 @@
+.gbooks {
+  box-sizing: border-box;
+  -webkit-text-size-adjust: 100%;
+  background-color: #042623;
+  text-align: center;
+  margin: 0;
+}
+.gbooks header {
+  background-color: #F2AE30;
+  color: #042623;
+  padding: 10px;
+}
+.gbooks header h1 {
+  margin: 0;
+}
+.gbooks #container {
+  padding: 10px;
+}
+.gbooks #container .item {
+  display: inline-block;
+  width: 80%;
+  background: #367368;
+  padding: 10px;
+  margin: 10px;
+}
+@media (min-width: 590px) {
+  .gbooks #container .item {
+    width: 290px;
+  }
+}
+.gbooks #container .item .image {
+  filter: grayscale(100%);
+}
+.gbooks #container .item .title {
+  color: #F2AE30;
+  font-weight: bold;
+  font-size: 20px;
+}
+.gbooks #container .item .description {
+  color: #F6D488;
+  text-align: left;
+}
