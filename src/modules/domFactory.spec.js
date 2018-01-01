@@ -1,26 +1,29 @@
 import DomFactory from './domFactory';
 
-/* global describe, beforeEach, it, expect, document */
+/* global describe, jest, beforeEach, it, expect, document */
 
 describe('DomFactory class', () => {
   let domFactory;
+  let validateMock;
 
   beforeEach(() => {
-    domFactory = new DomFactory(document);
+    validateMock = jest.fn();
+    validateMock.isHtmlArray = jest.fn();
+    domFactory = new DomFactory(document, validateMock);
   });
 
   it('Can be instantiated', () => {
     expect(domFactory).toEqual(expect.anything());
   });
 
-  describe('appendTo static method', () => {
+  describe('appendTo method', () => {
     it('Can append an Array of one node to a parent', () => {
       const parent = document.createElement('div');
       const child = document.createElement('p');
 
       expect(parent.childElementCount).toEqual(0);
       expect(parent.childNodes).not.toContain(child);
-      DomFactory.appendTo(parent, [child]);
+      domFactory.appendTo(parent, [child]);
       expect(parent.childElementCount).toEqual(1);
       expect(parent.childNodes).toContain(child);
     });
@@ -35,18 +38,26 @@ describe('DomFactory class', () => {
       expect(parent.childNodes).not.toContain(childSecond);
       expect(parent.childNodes).not.toContain(childThird);
       expect(parent.childElementCount).toEqual(0);
-      DomFactory.appendTo(parent, [childFirst, childSecond, childThird]);
+      domFactory.appendTo(parent, [childFirst, childSecond, childThird]);
       expect(parent.childNodes).toContain(childFirst);
       expect(parent.childNodes).toContain(childSecond);
       expect(parent.childNodes).toContain(childThird);
       expect(parent.childElementCount).toEqual(3);
     });
 
-    it('Calls Validate.isHtmlArray with the childArray', () => {
-      // const parent = document.createElement('div');
-      // expect(parent.childElementCount).toEqual(0);
-      // DomFactory.appendTo(parent, []);
-      // expect(parent.childElementCount).toEqual(0);
+    it('Calls Validate.isHtmlArray', () => {
+      const parent = document.createElement('div');
+      const child = document.createElement('p');
+      expect(validateMock.isHtmlArray.mock.calls.length).toBe(0);
+      domFactory.appendTo(parent, [child]);
+      expect(validateMock.isHtmlArray.mock.calls.length).toBe(1);
+    });
+
+    it('Calls Validate.isHtmlArray with the childArray as an arg', () => {
+      const parent = document.createElement('div');
+      const child = document.createElement('p');
+      domFactory.appendTo(parent, [child]);
+      expect(validateMock.isHtmlArray.mock.calls[0][0]).toEqual([child]);
     });
   });
 });

@@ -1,5 +1,3 @@
-import Validate from './validate.js';
-
 /**
  * A factory class that provides common DOM elements
  */
@@ -7,7 +5,8 @@ class DomFactory {
   /**
    * @param {Document} document
    */
-  constructor(document) {
+  constructor(document, validate) {
+    this.validate = validate;
     this.document = document;
   }
 
@@ -16,8 +15,8 @@ class DomFactory {
    * @param {Element} parent HTML node
    * @param {Element[]} childArray Array of HTML node(s)
    */
-  static appendTo(parent, childArray = []) {
-    Validate.isHtmlArray(childArray);
+  appendTo(parent, childArray = []) {
+    this.validate.isHtmlArray(childArray);
 
     childArray.map((node) => {
       parent.appendChild(node);
