@@ -62,6 +62,13 @@ describe('DomFactory class', () => {
       const actual = () => { DomFactory.appendTo(parent, child); };
       expect(actual).toThrow('string is not of type [Array]');
     });
+
+    it('Throws appropriate error when childArray does not contain HTML node(s)', () => {
+      const parent = document.createElement('div');
+      const child = ['string'];
+      const actual = () => { DomFactory.appendTo(parent, child); };
+      expect(actual).toThrow('string is not of type [HTMLElement]');
+    });
   });
 });
 
