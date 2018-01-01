@@ -1,3 +1,5 @@
-import a from './modules/a.js';
+/* global document */
 
-a();
+import DomFactory from './modules/domFactory.js';
+
+console.log(new DomFactory(document));
