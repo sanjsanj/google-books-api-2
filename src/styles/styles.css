@@ -28,9 +28,6 @@
     width: 290px;
   }
 }
-.gbooks #container .item .image {
-  filter: grayscale(100%);
-}
 .gbooks #container .item .title {
   color: #F2AE30;
   font-weight: bold;
